@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox and Grid layout Example</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        body{
+            font-family: Arial,sans-serif,;
+        }
+        header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #3499dc;
+            color:white;
+        }
+        header.logo{
+            font-size: 44px;
+            font-weight: bold;
+        }
+        nav ul{
+            display: flex;
+            list-style:none;
+        }
+        nav ul li a{
+            margin-left: 40px;
+        }
+        nav ul li a{
+            text-decoration: none;
+            color:white;
+            font-weight: bold;
+        }
+        main{
+            display:grid;
+            grid-template-columns:1fr 3fr;
+            gap:20px;
+            padding:20px;
+        }
+        aside{
+            background-color: #f4f4f4;
+            padding:20px;
+        }
+        section{
+            background-color: #eaeaea;
+            padding:20px;
+        }
+        .cards{
+            display: flex;
+            flex-wrap:wrap;
+            gap:20px;
+        }
+        .cards{
+            background-color: white;
+            padding:20px;
+            border-radius: 50px;
+            flex:1 1 calc(33%-20%);
+            box-shadow: 0px 2px 5px rgba(1,1,1,1);
+        }
+        footer{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            padding:20px;
+            background-color: #2c3e50;
+            color:white;
+        }
+        @media (max-width:768px){
+            main{
+                grid-template-columns: 1fr;
+            }
+        }
+        .cards{
+            flex:1 1 1 100%;
+        }
+        nav ul{
+            flex-direction: coloumn;
+        }
+        nav ul li{
+            margin-left: 0;
+            margin-top: 10px;
+        }
+        
+    </style>
+
+   
+    
+</head>
+<body>
+    <header>
+    <div class="logo">my website</div>
+    <nav>
+        <ul>
+            <li><a href="https://www.sahyadri.edu.in">Home</a></li>
+            <li><a href="https://sitmng.ac.in/index.html">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+ <main>
+        <aside>
+            <h2>Sidebar</h2>
+            <p>This is the Sidebar content</p>
+            <ul>
+                <li>Link 1</li>
+                <li>Link 2</li>
+                <li>Link 3</li>
+
+            </ul>
+        </aside>
+        <section>
+            <h2>Main Content </h2>
+            <div class ="cards">
+                <div class="cards">
+                    <h3>card 1</h3>
+                    <p>This is the content of card 1</p>
+                </div>
+                 <div class="cards">
+                    <h3>card 2</h3>
+                    <p>This is the content of card 2</p>
+                </div>
+                 <div class="cards">
+                    <h3>card 3</h3>
+                    <p>This is the content of card 3</p>
+                </div>
+                 <div class="cards">
+                    <h3>card 4</h3>
+                    <p>This is the content of card 4</p>
+                </div>
+                 <div class="cards">
+                    <h3>card 5</h3>
+                    <p>This is the content of card 5</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        &copy;2025 My website
+    </footer>
+</body>
+</html>

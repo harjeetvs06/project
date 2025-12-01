@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodShare — Save Food, Serve People</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            background: #f9f9f9;
+            color: #222;
+        }
+
+        /* NAVBAR */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: #1a1a1a;
+            color: white;
+        }
+        nav .logo {
+            font-size: 22px;
+            font-weight: 600;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        nav ul li {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        nav ul li:hover {
+            color: #00c853;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url('https://images.unsplash.com/photo-1504754524776-8f4f37790ca0');
+            background-size: cover;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+        .hero button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            background: #00c853;
+            color: white;
+            transition: 0.3s;
+        }
+        .hero button:hover {
+            background: #00a844;
+        }
+
+        /* SECTION WRAPPER */
+        .section {
+            padding: 60px;
+        }
+        .section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        /* FORM CARDS */
+        .card {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .card input, .card textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        .card button {
+            width: 100%;
+            padding: 12px;
+            background: #1a73e8;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .card button:hover {
+            background: #1559b5;
+        }
+
+        /* FOOD LIST */
+        .food-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .food-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .food-item h3 {
+            margin: 0 0 10px;
+        }
+        .claim-btn {
+            padding: 8px 15px;
+            background: #00c853;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .claim-btn:hover {
+            background: #00a844;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">FoodShare</div>
+        <ul>
+            <li onclick="scrollToSection('upload')">Restaurant Upload</li>
+            <li onclick="scrollToSection('browse')">Browse Food</li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div>
+            <h1>Save Food. Serve People.</h1>
+            <p>Connecting restaurants with volunteers to deliver surplus food to those in need.</p>
+            <button onclick="scrollToSection('upload')">Get Started</button>
+        </div>
+    </div>
+
+    <!-- RESTAURANT UPLOAD -->
+    <div class="section" id="upload">
+        <h2>Restaurant — Upload Surplus Food</h2>
+        <div class="card">
+            <input type="text" id="foodName" placeholder="Food Name">
+            <textarea id="foodDetails" placeholder="Describe the food..."></textarea>
+            <button onclick="uploadFood()">Upload Food</button>
+        </div>
+    </div>
+
+    <!-- BROWSE FOOD -->
+    <div class="section" id="browse">
+        <h2>Available Food For Pickup</h2>
+        <div class="food-list" id="foodList"></div>
+    </div>
+
+<script>
+    // Smooth scroll
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
+
+    // Store food items
+    let foods = [];
+
+    function uploadFood() {
+        let name = document.getElementById("foodName").value;
+        let details = document.getElementById("foodDetails").value;
+
+        if (name.trim() === "" || details.trim() === "") {
+            alert("Please fill all fields!");
+            return;
+        }
+
+        foods.push({ name, details });
+        updateFoodList();
+
+        alert("Food uploaded successfully!");
+        document.getElementById("foodName").value = "";
+        document.getElementById("foodDetails").value = "";
+    }
+
+    function claimFood(index) {
+        alert("Food claimed! Thank you for helping ❤️");
+        foods.splice(index, 1);
+        updateFoodList();
+    }
+
+    function updateFoodList() {
+        let list = document.getElementById("foodList");
+        list.innerHTML = "";
+
+        foods.forEach((food, index) => {
+            list.innerHTML += `
+                <div class="food-item">
+                    <h3>${food.name}</h3>
+                    <p>${food.details}</p>
+                    <button class="claim-btn" onclick="claimFood(${index})">Claim Food</button>
+                </div>
+            `;
+        });
+    }
+</script>
+
+</body>
+</html>
