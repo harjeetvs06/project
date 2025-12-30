@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "cd civic-platform && npm run dev",
+    "build": "cd civic-platform && npm ci && npm run build",
+    "start": "cd civic-platform && npm run start"
+  }
+}
